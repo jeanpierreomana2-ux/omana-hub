@@ -1,41 +1,36 @@
-import { api } from "./api";
-import { getAccessToken } from "./auth.service";
+import { supabase } from "../config/supabase";
 
-export interface Member {
-  id: string;
-  profile_id: string;
+export async function getMembers() {
+  const { data, error } = await supabase
+    .from("members")
+    .select("*")
+    .order("created_at", { ascending: false });
 
-  member_number: string;
+  if (error) throw error;
 
-  first_name: string;
-  last_name: string;
-
-  gender?: string;
-  birth_date?: string;
-
-  phone?: string;
-  email?: string;
-
-  address?: string;
-  city?: string;
-  province?: string;
-  country?: string;
-
-  profession?: string;
-
-  education_level?: string;
-
-  motivation?: string;
-
-  photo_url?: string;
-
-  status: string;
-
-  created_at?: string;
+  return data;
 }
 
-export async function getMembers(): Promise<Member[]> {
-  const token = await getAccessToken();
+export async function getMemberById(id: string) {
+  const { data, error } = await supabase
+    .from("members")
+    .select("*")
+    .eq("id", id)
+    .single();
 
-  return await api.get("/members", token);
+  if (error) throw error;
+
+  return data;
+}
+
+export async function createMember(member: any) {
+  const { data, error } = await supabase
+    .from("members")
+    .insert(member)
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  return data;
 }

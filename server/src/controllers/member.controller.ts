@@ -4,7 +4,6 @@ import * as memberService from "../services/member.service";
 export async function getAllMembers(_req: Request, res: Response) {
   try {
     const members = await memberService.getMembers();
-
     res.json(members);
   } catch (error: any) {
     res.status(500).json({
@@ -15,7 +14,9 @@ export async function getAllMembers(_req: Request, res: Response) {
 
 export async function getMember(req: Request, res: Response) {
   try {
-    const member = await memberService.getMemberById(req.params.id);
+    const id = String(req.params.id);
+
+    const member = await memberService.getMemberById(id);
 
     res.json(member);
   } catch (error: any) {
@@ -24,6 +25,7 @@ export async function getMember(req: Request, res: Response) {
     });
   }
 }
+
 export async function createMember(req: Request, res: Response) {
   try {
     const member = await memberService.createMember(req.body);
