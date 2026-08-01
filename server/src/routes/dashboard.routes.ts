@@ -1,10 +1,9 @@
 import { Router } from "express";
 import { supabase } from "../config/supabase";
-import { requireAuth } from "../middleware/auth.middleware";
 
 const router = Router();
 
-router.get("/", requireAuth, async (_req, res) => {
+router.get("/", async (_req, res) => {
   try {
     const { count: members } = await supabase
       .from("members")
