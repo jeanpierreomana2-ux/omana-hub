@@ -37,3 +37,17 @@ export async function createMember(req: Request, res: Response) {
     });
   }
 }
+export async function updateMemberStatus(req: Request, res: Response) {
+  try {
+    const id = String(req.params.id);
+    const { status } = req.body;
+
+    const member = await memberService.updateMemberStatus(id, status);
+
+    res.json(member);
+  } catch (error: any) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+}

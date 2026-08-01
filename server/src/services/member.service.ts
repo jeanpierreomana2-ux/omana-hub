@@ -34,3 +34,18 @@ export async function createMember(member: any) {
 
   return data;
 }
+export async function updateMemberStatus(
+  id: string,
+  status: "pending" | "active" | "suspended" | "expired",
+) {
+  const { data, error } = await supabase
+    .from("members")
+    .update({ status })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  return data;
+}
