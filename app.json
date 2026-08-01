@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "OMANA HUB",
+    "slug": "omana-hub",
+    "version": "1.0.0",
+    "orientation": "portrait",
+
+    "icon": "./assets/images/branding/icon.png",
+
+    "scheme": "omanahub",
+
+    "userInterfaceStyle": "automatic",
+
+    "ios": {
+      "supportsTablet": true,
+      "icon": "./assets/images/branding/icon.png"
+    },
+
+    "android": {
+      "predictiveBackGestureEnabled": false,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/branding/adaptive-icon.png",
+        "backgroundColor": "#081C3A"
+      }
+    },
+
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/branding/favicon.png"
+    },
+
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#081C3A",
+          "image": "./assets/images/branding/splash.png",
+          "imageWidth": 220
+        }
+      ],
+      "expo-secure-store",
+      "expo-image",
+      "expo-sharing"
+    ],
+
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
