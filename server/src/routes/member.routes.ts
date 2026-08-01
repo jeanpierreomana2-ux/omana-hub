@@ -1,32 +1,19 @@
 import { Router } from "express";
-import { supabase } from "../config/supabase";
+import {
+  createMember,
+  getAllMembers,
+  getMember,
+} from "../controllers/member.controller";
 
 const router = Router();
 
-/**
- * Liste de tous les membres
- */
-router.get("/", async (_req, res) => {
-  try {
-    const { data, error } = await supabase
-      .from("members")
-      .select("*")
-      .order("created_at", { ascending: false });
+// Liste de tous les membres
+router.get("/", getAllMembers);
 
-    if (error) {
-      return res.status(400).json({
-        error: error.message,
-      });
-    }
+// Un membre par ID
+router.get("/:id", getMember);
 
-    res.json(data);
-  } catch (err) {
-    console.error(err);
-
-    res.status(500).json({
-      error: "Erreur serveur",
-    });
-  }
-});
+// Création d'un membre
+router.post("/", createMember);
 
 export default router;
