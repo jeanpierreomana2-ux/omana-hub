@@ -4,6 +4,7 @@ import * as memberService from "../services/member.service";
 export async function getAllMembers(_req: Request, res: Response) {
   try {
     const members = await memberService.getMembers();
+
     res.json(members);
   } catch (error: any) {
     res.status(500).json({
@@ -37,6 +38,21 @@ export async function createMember(req: Request, res: Response) {
     });
   }
 }
+
+export async function updateMember(req: Request, res: Response) {
+  try {
+    const id = String(req.params.id);
+
+    const member = await memberService.updateMember(id, req.body);
+
+    res.json(member);
+  } catch (error: any) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+}
+
 export async function updateMemberStatus(req: Request, res: Response) {
   try {
     const id = String(req.params.id);
@@ -45,6 +61,23 @@ export async function updateMemberStatus(req: Request, res: Response) {
     const member = await memberService.updateMemberStatus(id, status);
 
     res.json(member);
+  } catch (error: any) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+}
+
+export async function deleteMember(req: Request, res: Response) {
+  try {
+    const id = String(req.params.id);
+
+    await memberService.deleteMember(id);
+
+    res.json({
+      success: true,
+      message: "Membre supprimé avec succès.",
+    });
   } catch (error: any) {
     res.status(500).json({
       error: error.message,

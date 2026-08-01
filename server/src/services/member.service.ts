@@ -34,6 +34,20 @@ export async function createMember(member: any) {
 
   return data;
 }
+
+export async function updateMember(id: string, member: any) {
+  const { data, error } = await supabase
+    .from("members")
+    .update(member)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  return data;
+}
+
 export async function updateMemberStatus(
   id: string,
   status: "pending" | "active" | "suspended" | "expired",
@@ -48,4 +62,14 @@ export async function updateMemberStatus(
   if (error) throw error;
 
   return data;
+}
+
+export async function deleteMember(id: string) {
+  const { error } = await supabase.from("members").delete().eq("id", id);
+
+  if (error) throw error;
+
+  return {
+    success: true,
+  };
 }
