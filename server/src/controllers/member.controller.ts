@@ -39,14 +39,53 @@ export async function createMember(req: Request, res: Response) {
   }
 }
 
-export async function updateMember(req: Request, res: Response) {
+export async function updateMemberStatus(req: Request, res: Response) {
   try {
+    console.log("METHOD :", req.method);
+    console.log("HEADERS :", req.headers);
+    console.log("BODY :", req.body);
+
     const id = String(req.params.id);
 
-    const member = await memberService.updateMember(id, req.body);
+    if (!req.body) {
+      return res.status(400).json({
+        error: "Body vide",
+      });
+    }
+
+    const { status } = req.body;
+
+    if (!status) {
+      return res.status(400).json({
+        error: "Status manquant",
+      });
+    }
+
+    const member = await memberService.updateMemberStatus(id, status);
 
     res.json(member);
   } catch (error: any) {
+    console.error(error);
+
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+}
+    const { status } = req.body;
+
+    if (!status) {
+      return res.status(400).json({
+        error: "Le statut est obligatoire.",
+      });
+    }
+
+    const member = await memberService.updateMemberStatus(id, status);
+
+    res.json(member);
+  } catch (error: any) {
+    console.error(error);
+
     res.status(500).json({
       error: error.message,
     });
