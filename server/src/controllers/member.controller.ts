@@ -53,19 +53,11 @@ export async function updateMember(req: Request, res: Response) {
 }
 
 export async function updateMemberStatus(req: Request, res: Response) {
-  try {
-    console.log("METHOD :", req.method);
-    console.log("HEADERS :", req.headers);
-    console.log("BODY :", req.body);
-
-    const id = String(req.params.id);
-
-    if (!req.body) {
-      return res.status(400).json({
-        error: "Body vide",
-      });
-    }
-
+  return res.json({
+    test: "VERSION NOUVELLE",
+    body: req.body,
+  });
+}
     const { status } = req.body;
 
     if (!status) {
