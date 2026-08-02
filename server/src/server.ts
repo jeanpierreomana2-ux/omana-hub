@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 
 import authRoutes from "./routes/auth.routes";
+import contributionRoutes from "./routes/contribution.routes";
 import dashboardRoutes from "./routes/dashboard.routes";
 import memberRoutes from "./routes/member.routes";
 
@@ -15,6 +16,7 @@ app.use(express.json());
 
 app.use("/dashboard", dashboardRoutes);
 app.use("/members", memberRoutes);
+app.use("/contributions", contributionRoutes);
 app.use("/auth", authRoutes);
 
 app.get("/", (_req, res) => {
